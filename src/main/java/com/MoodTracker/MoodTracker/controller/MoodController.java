@@ -24,4 +24,9 @@ public class MoodController {
     public List<Mood> getMoods() {
         return moodService.getAllMoods();
     }
+
+    @GetMapping("/")
+    public String home(){
+        return "Mood Tracker backend is running!!!";
+    }
 }
