@@ -1,30 +1,27 @@
 package com.MoodTracker.MoodTracker.service;
-
-
-
-import com.MoodTracker.MoodTracker.model.Mood;
-import com.MoodTracker.MoodTracker.repo.MoodRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import com.MoodTracker.MoodTracker.model.Mood;
 
 @Service
-@RequiredArgsConstructor
 public class MoodService {
-    private final MoodRepository moodRepository;
+
+    private final List<Mood> moods = new ArrayList<>();
+
     public Mood addMood(String mood, String note) {
+        Mood newMood = new Mood();
+        newMood.setId((long) (moods.size() + 1));
+        newMood.setMood(mood);
+        newMood.setNote(note);
+        newMood.setDate(LocalDate.now());
 
-        Mood m=new Mood();
-        m.setMood(mood);
-        m.setNote(note);
-        m.setDate(LocalDate.now());
-
-        return moodRepository.save(m);
+        moods.add(newMood);
+        return newMood;
     }
+
     public List<Mood> getAllMoods() {
-        return moodRepository.findAll();
+        return moods;
     }
 }

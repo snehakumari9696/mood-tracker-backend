@@ -1,23 +1,23 @@
 package com.MoodTracker.MoodTracker.controller;
-
-import com.MoodTracker.MoodTracker.model.Mood;
 import com.MoodTracker.MoodTracker.service.MoodService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.Map;
+import com.MoodTracker.MoodTracker.model.Mood;
 
 
 @RestController
 @RequestMapping("/api/moods")
-@RequiredArgsConstructor
 public class MoodController {
+
     private final MoodService moodService;
 
+    public MoodController(MoodService moodService) {
+        this.moodService = moodService;
+    }
+
     @PostMapping
-    public Mood addMood(@RequestBody Map<String, String> payload) {
-        return moodService.addMood(payload.get("mood"), payload.get("note"));
+    public Mood addMood(@RequestBody Mood mood) {
+        return moodService.addMood(mood.getMood(), mood.getNote());
     }
 
     @GetMapping
